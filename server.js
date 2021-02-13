@@ -1,22 +1,21 @@
 const http = require('http');
-const products = require('./data/products.json')
-const utils = require('./utils.js');
-
 const PORT = process.env.PORT || 3333;
+const productController = require('./controller/productController.js')
+const {urlRegexp,urlRegexpById} = require('./utils.js');
 
 const server = http.createServer((request,response)=>
 {
-    if(request.url === '/api/products')
+    if(request.url.match(urlRegexpById("products")) && request.method === 'GET')
     {
-        response.writeHead(200,utils.contentHeader)
-
-        response.end(JSON.stringify(products))
+        productController.debugResponse(request,response,"Teste")
+    }
+    else if(request.url.match(urlRegexp("products")) && request.method === 'GET')
+    {
+       productController.getProducts(request,response)
     }
     else
     {
-        response.writeHead(404,utils.contentHeader)
-
-        response.end('{"message":"Not found"}')
+        productController.errorResponse(request,response)
     }
     
 })
