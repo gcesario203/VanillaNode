@@ -19,7 +19,14 @@ let headers =
 
 
         return regularExp
-    } 
+    },
+
+    resolveUrlId: url => 
+    {
+        const id = url.split('/')[3]
+
+        return id
+    }
 }
 
 
