@@ -7,6 +7,25 @@ let utils =
         'Content-Type':'application/json'
     },
 
+    idHandle: (jsonCollection) =>
+    {
+        let nextId = 0
+        for(let i = 0;i<jsonCollection.length;i++)
+        {
+            
+            let aux = Number.parseInt(jsonCollection[i].id)
+
+            if(aux > nextId)
+            {
+                nextId = aux
+            }
+        }
+
+        nextId++
+
+        return nextId.toString()
+    },
+
     databaseFilePath: () =>
     {
         return './data/products.json'

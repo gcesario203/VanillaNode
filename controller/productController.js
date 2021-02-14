@@ -18,20 +18,29 @@ const getProductById = async(req,res,id)=>
 const createProduct = async(req,res) =>
 {
     try {
-        const newProduct = 
-        {
-            title:'Produto teste vanilla',
-            description:'Produto de teste utilizando node vanillaço',
-            price:200
-        }
 
-        const createMethod = await Product.create(newProduct)
+        let body = ''
         
-        res.writeHead(201, contentHeader)
+        req.on('data', mock =>
+        {
+            body += mock.toString();
+        })
 
-        return res.end(JSON.stringify(newProduct))
+        await req.on('end',  () => 
+        {
+            const newProduct = JSON.parse(body)
+            const createMethod =  Product.create(newProduct)
+        
+            res.writeHead(201, contentHeader)
+
+            return res.end(`{"message":"Product created with success"}`)
+        })
+
+        
     } catch (error) {
-        console.log(error)
+        res.writeHead(500,contentHeader)
+
+        res.end(`{"message":${error.message}}`)
     }
 }
 
@@ -54,7 +63,7 @@ const errorResponse = (req,res)=>
 {
         res.writeHead(404,contentHeader)
 
-        res.end(`{"message":"URL não identificada"}`)   
+        res.end(`{"message":"No Content has been found"}`)   
 }
 
 const debugResponse = (req,res,message) =>
