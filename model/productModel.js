@@ -1,10 +1,28 @@
 const products = require('../data/products.json')
 const {writeDataToFile, databaseFilePath, idHandle} = require('../utils.js')
 
-function create(product) {
+
+function deleteProduct(id) {
     return new Promise((resolve, reject) => {
 
-        console.log(idHandle(products))
+        findById(id)
+        .then(result =>
+            {
+                products.splice(products.indexOf(result),1)
+
+                writeDataToFile(databaseFilePath(), products)
+
+                resolve(result)
+            })
+        .catch(err=>
+            {
+                reject(err)
+            })
+    })    
+}
+
+function create(product) {
+    return new Promise((resolve, reject) => {
         const newProduct = {id:idHandle(products),...product}
 
         products.push(newProduct) 
@@ -36,4 +54,10 @@ function find() {
     })    
 }
 
-module.exports = {find,findById,create}
+module.exports = 
+{
+    find,
+    findById,
+    create,
+    deleteProduct
+}

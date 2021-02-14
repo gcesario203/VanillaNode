@@ -11,7 +11,21 @@ const getProductById = async(req,res,id)=>
         res.end(JSON.stringify(product))
     } catch (error) {
         res.writeHead(404, contentHeader)
-        res.end(`{"message":"Produto não encontrado"`)
+        res.end(`{"message":"Product Not Found"}`)
+    }
+}
+
+const deleteProduct = async(req,res,id) =>
+{
+    try {
+        const product = await Product.deleteProduct(id)
+
+        res.writeHead(203, contentHeader)
+
+        res.end(`{"message":"Product ${id} delete with success"}`)
+    } catch (error) {
+        res.writeHead(404, contentHeader)
+        res.end(`{"message":"Product not found"}`)
     }
 }
 
@@ -73,4 +87,12 @@ const debugResponse = (req,res,message) =>
     res.end(`{"debug":${message}}`)
 }
 
-module.exports = {getProducts,errorResponse, debugResponse, getProductById, createProduct}
+module.exports = 
+{
+    getProducts,
+    errorResponse,
+    debugResponse,
+    getProductById,
+    createProduct,
+    deleteProduct
+}
