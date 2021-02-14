@@ -1,8 +1,30 @@
-let headers =
+const fs = require('fs')
+
+let utils =
 {
     contentHeader:
     {
         'Content-Type':'application/json'
+    },
+
+    databaseFilePath: () =>
+    {
+        return './data/products.json'
+    },
+
+    writeDataToFile:(filename, content)=>
+    {
+        fs.writeFileSync(
+            filename, 
+            JSON.stringify(content),
+            'utf-8',
+            err=>
+            {
+                if(err)
+                {
+                    console.log(err)
+                }
+            })
     },
 
     urlRegexpById: (controllerName) =>
@@ -30,4 +52,4 @@ let headers =
 }
 
 
-module.exports = headers
+module.exports = utils
