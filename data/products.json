@@ -1,1 +1,20 @@
-[{"id":"2","title":"Isso é um testeo","description":"com certeza é um teste","price":250},{"id":"3","title":"Isso é um testeo","description":"com certeza é um teste","price":250},{"id":"4","name":"Sony Playstation 4 Pro White Version","description":"The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music","price":399.99}]
+[
+    {
+        "id": "2",
+        "title": "Isso é um testeo",
+        "description": "com certeza é um teste",
+        "price": 250
+    },
+    {
+        "id": "3",
+        "title": "Isso é um testeo",
+        "description": "com certeza é um teste",
+        "price": 250
+    },
+    {
+        "id": "4",
+        "title": "Isso é um testeo",
+        "description": "com certeza é um teste",
+        "price": 250
+    }
+]

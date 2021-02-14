@@ -7,6 +7,14 @@ let utils =
         'Content-Type':'application/json'
     },
 
+    sortCollection: collectionName =>
+    {
+        collectionName.sort((a,b) =>
+        Number.parseInt(a.id) > Number.parseInt(b.id) ? 1 :
+        Number.parseInt(a.id) < Number.parseInt(b.id) ? -1 : 
+        0)
+    },
+
     idHandle: (jsonCollection) =>
     {
         let nextId = 0

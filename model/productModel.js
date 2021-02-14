@@ -1,5 +1,5 @@
 const products = require('../data/products.json')
-const {writeDataToFile, databaseFilePath, idHandle} = require('../utils.js')
+const {writeDataToFile, databaseFilePath, idHandle, sortCollection} = require('../utils.js')
 
 
 function updateProduct(pId, product) {
@@ -13,11 +13,7 @@ function updateProduct(pId, product) {
 
                 products.push(updatedObject)
 
-                products.sort((a,b) =>
-                Number.parseInt(a.id) > Number.parseInt(b.id) ? 1 :
-                Number.parseInt(a.id) < Number.parseInt(b.id) ? -1 : 
-                0)
-
+                sortCollection(products)
 
                 writeDataToFile(databaseFilePath(),products)
 
