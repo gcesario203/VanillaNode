@@ -2,6 +2,30 @@ const products = require('../data/products.json')
 const {writeDataToFile, databaseFilePath, idHandle} = require('../utils.js')
 
 
+function updateProduct(pId, product) {
+    return new Promise((resolve, reject) => {
+        findById(pId)
+        .then(result =>
+            {
+                const updatedObject = {id:pId,...product}
+
+                products.splice(products.indexOf(result),1)
+
+                products.push(updatedObject)
+
+                products.sort((a,b) =>
+                Number.parseInt(a.id) > Number.parseInt(b.id) ? 1 :
+                Number.parseInt(a.id) < Number.parseInt(b.id) ? -1 : 
+                0)
+
+
+                writeDataToFile(databaseFilePath(),products)
+
+                resolve(updateProduct)
+            })
+            .catch(err=> reject(err))
+    })
+}
 function deleteProduct(id) {
     return new Promise((resolve, reject) => {
 
@@ -59,5 +83,6 @@ module.exports =
     find,
     findById,
     create,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }

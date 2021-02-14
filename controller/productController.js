@@ -1,6 +1,32 @@
 const Product = require('../model/productModel.js');
 const {contentHeader} = require('../utils.js');
 
+
+const updateProduct = async(req,res,id)=>
+{
+    try {
+        let body = ''
+        
+        req.on('data', mock =>
+        {
+            body += mock.toString();
+        })
+
+        await req.on('end',  () => 
+        {
+            const updatedProduct = JSON.parse(body)
+            const createMethod =  Product.updateProduct(id,updatedProduct)
+        
+            res.writeHead(201, contentHeader)
+
+            return res.end(`{"message":"Product updated with success"}`)
+        })
+    } catch (error) {
+        res.writeHead(404, contentHeader)
+        res.end(`{"message":"Product Not Found"}`)
+    }
+}
+
 const getProductById = async(req,res,id)=>
 {
     try {
@@ -94,5 +120,6 @@ module.exports =
     debugResponse,
     getProductById,
     createProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }

@@ -10,6 +10,11 @@ let productRoutes =
             const id = utils.resolveUrlId(request.url)
             productController.getProductById(request,response,id)
         }
+        else if(request.url.match(utils.urlRegexpById("products")) && request.method === 'PUT')
+        {
+            const id = utils.resolveUrlId(request.url)
+            productController.updateProduct(request,response,id)
+        }
         else if(request.url.match(utils.urlRegexpById("products")) && request.method === 'DELETE')
         {
             const id = utils.resolveUrlId(request.url)
